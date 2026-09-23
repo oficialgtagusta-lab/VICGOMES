@@ -93,8 +93,8 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 
 <!-- FUNDO: troque os arquivos em /videos por os seus (MP4, sem áudio, ~10 a 20s, leve) -->
 <div class="stack" id="stack" aria-hidden="true">
-  <div class="panel"><video muted loop autoplay playsinline disablepictureinpicture preload="auto" src="videos/fundo-1.mp4"></video></div>
-  <div class="panel"><video muted loop autoplay playsinline disablepictureinpicture preload="auto" src="videos/fundo-2.mp4"></video></div>
+  <div class="panel"><video muted loop autoplay playsinline disablepictureinpicture preload="auto" data-file="fundo-1.mp4"></video></div>
+  <div class="panel"><video muted loop autoplay playsinline disablepictureinpicture preload="auto" data-file="fundo-2.mp4"></video></div>
 </div>
 <div class="grid" aria-hidden="true"></div>
 
@@ -108,7 +108,7 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 
 <main>
   <section class="screen">
-    <div class="avatar"><img id="foto" src="foto-perfil.jpg" alt="Foto de perfil" onerror="this.removeAttribute('src')"></div>
+    <div class="avatar"><img id="foto" data-file="foto-perfil.jpg" alt="Foto de perfil"></div>
     <h1 id="nome">VIC GOMES</h1>
     <p class="bio" id="bio">Escolha onde quer me acompanhar.</p>
     <ul class="links" id="links"></ul>
@@ -135,6 +135,11 @@ const LINKS = [
   { label:"YouTube",    sub:"Meus vídeos",          url:"https://youtube.com/@seucanal",                   img:"" },
   { label:"Novidades",  sub:"Biquíni Chicc",        url:"https://www.instagram.com/biquini_chicc/",        img:"" }
 ];
+
+/* ===== MÍDIA no Supabase Storage (bucket público "midia") =====
+   Envie para o bucket: fundo-1.mp4, fundo-2.mp4 e foto-perfil.jpg */
+const MIDIA = "https://tczzkepsuurhiztekgig.supabase.co/storage/v1/object/public/midia/";
+document.querySelectorAll("[data-file]").forEach(el=>{ el.src = MIDIA + el.dataset.file; });
 
 /* ===== SUPABASE (opcional): preencha para editar os links por uma tabela =====
    Tabela "links": pos int, label text, sub text, url text, img text (leitura pública via RLS) */
