@@ -53,7 +53,27 @@ h1{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw
   box-shadow:0 0 0 0 rgba(255,79,147,0),inset 0 1px 0 rgba(255,255,255,.25);
   transition:transform .2s,box-shadow .2s,background .2s}
 .bar:hover{transform:translateY(-2px);background:rgba(255,255,255,.2);box-shadow:0 8px 30px rgba(255,79,147,.55),inset 0 1px 0 rgba(255,255,255,.35)}
-.bar:active{transform:scale(.98)}
+.bar:active{transform:scale(.97)}
+.bar{position:relative;overflow:hidden;isolation:isolate;-webkit-tap-highlight-color:transparent}
+.links li{animation:entra .8s cubic-bezier(.2,.9,.3,1.15) calc(.25s + var(--i,0)*.09s) both,flutua 5s ease-in-out calc(1.4s + var(--i,0)*.35s) infinite}
+@keyframes entra{from{opacity:0;transform:translateY(28px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes flutua{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.bar::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .25s;
+  background:radial-gradient(190px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.38),transparent 62%)}
+.bar:hover::before{opacity:1}
+.bar::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:34%;z-index:-1;transform:skewX(-20deg);pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+  animation:brilho 4.6s ease-in-out calc(2s + var(--i,0)*.7s) infinite}
+@keyframes brilho{0%,55%{left:-40%}100%{left:135%}}
+.bar .chev{transition:transform .2s}
+.bar:hover .chev{transform:translateX(5px)}
+.bar:hover .thumb{animation:balanca .6s ease}
+@keyframes balanca{0%{transform:none}30%{transform:rotate(-12deg) scale(1.12)}60%{transform:rotate(8deg) scale(1.12)}100%{transform:none}}
+.thumb{animation:pulsa 3.2s ease-in-out infinite}
+@keyframes pulsa{0%,100%{box-shadow:0 0 12px rgba(255,79,147,.5)}50%{box-shadow:0 0 24px rgba(255,79,147,.95)}}
+.onda{position:absolute;width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;z-index:-1;pointer-events:none;
+  background:rgba(255,255,255,.5);transform:scale(0);animation:ondear .65s ease-out forwards}
+@keyframes ondear{to{transform:scale(1);opacity:0}}
 .bar:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .thumb{flex:none;width:46px;height:46px;border-radius:12px;overflow:hidden;display:grid;place-items:center;
   background:linear-gradient(135deg,var(--rose),#a3225f);box-shadow:0 0 14px rgba(255,79,147,.6)}
@@ -96,20 +116,7 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 .nav a[aria-current]{background:rgba(255,255,255,.18);color:#fff}
 .nav a:focus-visible,.marca:focus-visible,.card:focus-visible{outline:2px solid #fff;outline-offset:3px}
 
-/* ---------- GRADE DE CANAIS: 1 coluna (celular) > 2 (tablet) > 4 (desktop) ---------- */
-.grade{display:grid;grid-template-columns:1fr;gap:14px;width:100%;max-width:1100px;margin-top:26px}
-@media (min-width:560px){.grade{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:1000px){.grade{grid-template-columns:repeat(4,1fr);gap:18px}}
-.card{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:18px;border-radius:20px;text-align:left;color:var(--ink);text-decoration:none;
-  background:var(--glass);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);
-  backdrop-filter:blur(var(--blur-ui)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur-ui)) saturate(1.4);
-  transition:transform .2s,box-shadow .2s}
-.card:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(255,79,147,.5),inset 0 1px 0 rgba(255,255,255,.35)}
-.card .thumb{width:52px;height:52px;margin-bottom:10px}
-.card b{font-size:1.05rem;font-weight:600}
-.card small{font-size:.85rem;color:var(--rose-soft);text-shadow:0 1px 6px rgba(40,4,24,.6)}
-.card .go{margin-top:14px;font-weight:600;font-size:.85rem}
-@supports not (backdrop-filter:blur(1px)){.bar,.card,.cab::before{background:rgba(58,8,38,.8)}}
+@supports not (backdrop-filter:blur(1px)){.bar,.cab::before{background:rgba(58,8,38,.8)}}
 
 /* ---------- BORBOLETAS ---------- */
 .borboletas{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
@@ -122,7 +129,7 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 @keyframes sway{from{transform:translateX(calc(var(--a) * -1)) rotate(-14deg)}to{transform:translateX(var(--a)) rotate(14deg)}}
 @keyframes bate{from{transform:scaleX(1)}to{transform:scaleX(.18)}}
 
-@media (prefers-reduced-motion:reduce){.borboletas,.veil{display:none}.card{transition:none}.avatar,.avatar img,.hint i{animation:none}.bar{transition:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.borboletas,.veil{display:none}.links li,.bar::after,.thumb,.onda{animation:none}.bar:hover .thumb{animation:none}.avatar,.avatar img,.hint i{animation:none}.bar{transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -146,7 +153,7 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 <header class="cab" id="cab">
   <a class="marca" href="#inicio">VIC GOMES</a>
   <nav class="nav" aria-label="Seções">
-    <a href="#inicio" aria-current>Início</a><a href="#atalhos">Canais</a><a href="#contato">Contato</a>
+    <a href="#inicio" aria-current>Início</a><a href="#contato">Contato</a>
   </nav>
 </header>
 
@@ -157,12 +164,6 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
     <p class="bio" id="bio">Escolha onde quer me acompanhar.</p>
     <ul class="links" id="links"></ul>
     <div class="hint" aria-hidden="true"><span>role para baixo</span><i></i></div>
-  </section>
-
-  <section class="screen" id="atalhos">
-    <h2>Meus canais</h2>
-    <p class="sub">Toque em um canal para abrir.</p>
-    <div class="grade" id="cards"></div>
   </section>
 
   <section class="screen" id="contato">
@@ -228,16 +229,12 @@ const thumb = i => {
 };
 
 carregar().then(itens=>{
-  document.getElementById("links").innerHTML = itens.slice(0,5).map(i=>{
+  document.getElementById("links").innerHTML = itens.slice(0,5).map((i,n)=>{
     return `
-    <li><a class="bar" href="${esc(seguro(i.url))}" target="_blank" rel="noopener">
+    <li style="--i:${n}"><a class="bar" href="${esc(seguro(i.url))}" target="_blank" rel="noopener">
       ${thumb(i)}
       <span class="txt"><b>${esc(i.label)}</b><small>${esc(i.sub)}</small></span>${CHEV}
     </a></li>`;}).join("");
-  document.getElementById("cards").innerHTML = itens.slice(1,5).map(i=>`
-    <a class="card" href="${esc(seguro(i.url))}" target="_blank" rel="noopener">
-      ${thumb(i)}<b>${esc(i.label)}</b><small>${esc(i.sub)}</small><span class="go">Abrir</span>
-    </a>`).join("");
 });
 
 /* ===== Scroll: fundo-1 vira fundo-2 (crossfade + desfoque) e cabeçalho ===== */
@@ -267,6 +264,28 @@ const io = new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting) navLinks.forEach(a=>a.toggleAttribute("aria-current", a.getAttribute("href") === "#"+e.target.id));
 }),{threshold:.5});
 document.querySelectorAll("main section[id]").forEach(x=>io.observe(x));
+
+/* ===== Barras interativas: brilho que segue o dedo/mouse, inclinação 3D e onda no toque ===== */
+const lista = document.getElementById("links");
+lista.addEventListener("pointermove", e=>{
+  const b = e.target.closest(".bar"); if(!b) return;
+  const r = b.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  b.style.setProperty("--mx", x + "px"); b.style.setProperty("--my", y + "px");
+  if(e.pointerType === "mouse" && !reduz){
+    b.style.transform = `perspective(700px) rotateX(${((y/r.height)-.5)*-9}deg) rotateY(${((x/r.width)-.5)*11}deg) translateY(-2px) scale(1.02)`;
+  }
+});
+lista.addEventListener("pointerout", e=>{
+  const b = e.target.closest(".bar");
+  if(b && !b.contains(e.relatedTarget)) b.style.transform = "";
+});
+lista.addEventListener("pointerdown", e=>{
+  const b = e.target.closest(".bar"); if(!b || reduz) return;
+  const r = b.getBoundingClientRect(), o = document.createElement("span");
+  o.className = "onda"; o.style.left = (e.clientX - r.left) + "px"; o.style.top = (e.clientY - r.top) + "px";
+  b.appendChild(o); setTimeout(()=>o.remove(), 700);
+  if(navigator.vibrate) navigator.vibrate(8);
+});
 
 /* ===== Vídeos: loop contínuo, retoma se o navegador pausar ===== */
 const videos = [...document.querySelectorAll("video")];
