@@ -12,28 +12,30 @@
 <style>
 :root{
   --rose:#ff4f93; --rose-soft:#ffc2da; --wine:#3b0a27; --ink:#fff5f9;
-  --glass:rgba(70,10,45,.34); --line:rgba(255,194,218,.55);
+  --glass:rgba(70,10,45,.34); --blur-veil:8px; --blur-ui:10px; --line:rgba(255,194,218,.55);
 }
+@media (min-width:1000px){:root{--blur-veil:16px;--blur-ui:18px}}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--wine);min-height:200svh;overflow-x:hidden}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--wine);overflow-x:hidden}
 
 /* ---------- FUNDO: 2 vídeos empilhados que deslizam com o scroll ---------- */
-.stack{position:fixed;top:0;left:0;width:100%;height:200svh;z-index:-1;will-change:transform}
-.panel{position:relative;width:100%;height:100svh;overflow:hidden}
+.stack{position:fixed;inset:0;z-index:-1;overflow:hidden;background:var(--wine)}
+.panel{position:absolute;inset:0;overflow:hidden;will-change:opacity,transform;transform:translateZ(0)}
 .panel:nth-child(1){background:radial-gradient(circle at 30% 20%,#ff7ab0,#5a1038 70%)}
-.panel:nth-child(2){background:radial-gradient(circle at 70% 80%,#ff9cc6,#3b0a27 70%)}
+.panel:nth-child(2){opacity:0;background:radial-gradient(circle at 70% 80%,#ff9cc6,#3b0a27 70%)}
 .panel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.12) brightness(1.06)}
 .panel::after{content:"";position:absolute;inset:0;
   /* véu rosé leve: os vídeos aparecem por baixo. Para mais/menos vídeo, mude o opacity abaixo */
   background:linear-gradient(165deg,rgba(255,79,147,.62),rgba(200,50,120,.42) 55%,rgba(122,20,84,.62));opacity:.7}
+.veil{position:absolute;inset:0;opacity:0;will-change:opacity;backdrop-filter:blur(var(--blur-veil));-webkit-backdrop-filter:blur(var(--blur-veil));pointer-events:none}
 .grid{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.07;
   background-image:linear-gradient(var(--rose-soft) 1px,transparent 1px),linear-gradient(90deg,var(--rose-soft) 1px,transparent 1px);
   background-size:44px 44px;mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%)}
 
 /* ---------- TELAS ---------- */
 main{padding-top:env(safe-area-inset-top,0)}
-.screen{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center}
+.screen{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:84px 20px 48px;text-align:center}
 .avatar{width:104px;height:104px;border-radius:50%;padding:3px;margin-bottom:18px;
   background:conic-gradient(from 0deg,var(--rose),var(--rose-soft),#fff,var(--rose));
   box-shadow:0 0 34px rgba(255,79,147,.65);animation:spin 9s linear infinite}
@@ -47,7 +49,7 @@ h1{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw
 .bar{display:flex;align-items:center;gap:14px;height:64px;padding:0 16px 0 10px;border-radius:18px;
   color:var(--ink);text-decoration:none;text-align:left;
   background:var(--glass);border:1px solid var(--line);
-  backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
+  backdrop-filter:blur(var(--blur-ui)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur-ui)) saturate(1.4);
   box-shadow:0 0 0 0 rgba(255,79,147,0),inset 0 1px 0 rgba(255,255,255,.25);
   transition:transform .2s,box-shadow .2s,background .2s}
 .bar:hover{transform:translateY(-2px);background:rgba(255,255,255,.2);box-shadow:0 8px 30px rgba(255,79,147,.55),inset 0 1px 0 rgba(255,255,255,.35)}
@@ -81,6 +83,34 @@ h1{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw
 footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem;color:var(--rose-soft);opacity:.85;padding-bottom:env(safe-area-inset-bottom,0)}
 
 
+/* ---------- CABEÇALHO FIXO + NAVEGAÇÃO POR ÂNCORAS ---------- */
+.cab{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;transform:translateZ(0)}
+.cab::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;
+  background:rgba(58,8,38,.42);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(var(--blur-ui)) saturate(1.5);-webkit-backdrop-filter:blur(var(--blur-ui)) saturate(1.5)}
+.cab.rolou::before{opacity:1}
+.marca{font-family:'Unbounded',sans-serif;font-weight:700;font-size:.8rem;color:var(--ink);text-decoration:none;text-shadow:0 0 14px rgba(255,79,147,.8)}
+.nav{display:flex;gap:2px}
+.nav a{padding:8px 11px;border-radius:999px;font-size:.82rem;font-weight:600;color:var(--rose-soft);text-decoration:none;transition:background .2s,color .2s}
+.nav a[aria-current]{background:rgba(255,255,255,.18);color:#fff}
+.nav a:focus-visible,.marca:focus-visible,.card:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+/* ---------- GRADE DE CANAIS: 1 coluna (celular) > 2 (tablet) > 4 (desktop) ---------- */
+.grade{display:grid;grid-template-columns:1fr;gap:14px;width:100%;max-width:1100px;margin-top:26px}
+@media (min-width:560px){.grade{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.grade{grid-template-columns:repeat(4,1fr);gap:18px}}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:18px;border-radius:20px;text-align:left;color:var(--ink);text-decoration:none;
+  background:var(--glass);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);
+  backdrop-filter:blur(var(--blur-ui)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur-ui)) saturate(1.4);
+  transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(255,79,147,.5),inset 0 1px 0 rgba(255,255,255,.35)}
+.card .thumb{width:52px;height:52px;margin-bottom:10px}
+.card b{font-size:1.05rem;font-weight:600}
+.card small{font-size:.85rem;color:var(--rose-soft);text-shadow:0 1px 6px rgba(40,4,24,.6)}
+.card .go{margin-top:14px;font-weight:600;font-size:.85rem}
+@supports not (backdrop-filter:blur(1px)){.bar,.card,.cab::before{background:rgba(58,8,38,.8)}}
+
 /* ---------- BORBOLETAS ---------- */
 .borboletas{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
 .bf{position:absolute;left:var(--x);bottom:-80px;width:var(--s);height:var(--s);opacity:0;
@@ -92,7 +122,7 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 @keyframes sway{from{transform:translateX(calc(var(--a) * -1)) rotate(-14deg)}to{transform:translateX(var(--a)) rotate(14deg)}}
 @keyframes bate{from{transform:scaleX(1)}to{transform:scaleX(.18)}}
 
-@media (prefers-reduced-motion:reduce){.borboletas{display:none}.avatar,.avatar img,.hint i{animation:none}.bar{transition:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.borboletas,.veil{display:none}.card{transition:none}.avatar,.avatar img,.hint i{animation:none}.bar{transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -101,6 +131,7 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 <div class="stack" id="stack" aria-hidden="true">
   <div class="panel"><video muted loop autoplay playsinline disablepictureinpicture preload="auto" data-file="fundo-1.mp4"></video></div>
   <div class="panel"><video muted loop autoplay playsinline disablepictureinpicture preload="auto" data-file="fundo-2.mp4"></video></div>
+  <div class="veil" id="veil"></div>
 </div>
 <div class="grid" aria-hidden="true"></div>
 
@@ -112,8 +143,15 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 </svg>
 <div class="borboletas" id="borboletas" aria-hidden="true"></div>
 
+<header class="cab" id="cab">
+  <a class="marca" href="#inicio">VIC GOMES</a>
+  <nav class="nav" aria-label="Seções">
+    <a href="#inicio" aria-current>Início</a><a href="#atalhos">Canais</a><a href="#contato">Contato</a>
+  </nav>
+</header>
+
 <main>
-  <section class="screen">
+  <section class="screen" id="inicio">
     <div class="avatar"><img id="foto" data-file="foto-perfil.jpg" alt="Foto de perfil"></div>
     <h1 id="nome">VIC GOMES</h1>
     <p class="bio" id="bio">Escolha onde quer me acompanhar.</p>
@@ -121,7 +159,13 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
     <div class="hint" aria-hidden="true"><span>role para baixo</span><i></i></div>
   </section>
 
-  <section class="screen">
+  <section class="screen" id="atalhos">
+    <h2>Meus canais</h2>
+    <p class="sub">Toque em um canal para abrir.</p>
+    <div class="grade" id="cards"></div>
+  </section>
+
+  <section class="screen" id="contato">
     <h2>Fale comigo direto no WhatsApp</h2>
     <p class="sub">Parcerias, publicidade e contato profissional.</p>
     <a class="cta" id="cta" href="https://wa.me/5579991768132" target="_blank" rel="noopener">Chamar no WhatsApp</a>
@@ -145,7 +189,7 @@ const LINKS = [
 /* ===== MÍDIA no Supabase Storage (bucket público "midia") =====
    Envie para o bucket: fundo-1.mp4, fundo-2.mp4 e foto-perfil.jpg */
 const MIDIA = "https://tczzkepsuurhiztekgig.supabase.co/storage/v1/object/public/midia/";
-document.querySelectorAll("[data-file]").forEach(el=>{ el.src = MIDIA + el.dataset.file; });
+document.querySelectorAll("[data-file]").forEach(el=>{ el.src = MIDIA + el.dataset.file + "?v=2"; });
 
 /* ===== SUPABASE (opcional): preencha para editar os links por uma tabela =====
    Tabela "links": pos int, label text, sub text, url text, img text (leitura pública via RLS) */
@@ -177,33 +221,53 @@ document.getElementById("nome").textContent = PERFIL.nome;
 document.getElementById("bio").textContent  = PERFIL.bio;
 document.getElementById("cta").href = seguro(PERFIL.whatsapp);
 
+const thumb = i => {
+  const ic = ICONES[String(i.label||"").toLowerCase()];
+  const miolo = i.img ? `<img src="${esc(seguro(i.img))}" alt="" loading="lazy">` : (ic ? ic.s : ICONE_FOTO);
+  return `<span class="thumb ${i.img || !ic ? "" : ic.c}">${miolo}</span>`;
+};
+
 carregar().then(itens=>{
   document.getElementById("links").innerHTML = itens.slice(0,5).map(i=>{
-    const ic = ICONES[String(i.label||"").toLowerCase()];
-    const miolo = i.img ? `<img src="${esc(seguro(i.img))}" alt="" loading="lazy">` : (ic ? ic.s : ICONE_FOTO);
     return `
     <li><a class="bar" href="${esc(seguro(i.url))}" target="_blank" rel="noopener">
-      <span class="thumb ${i.img || !ic ? "" : ic.c}">${miolo}</span>
+      ${thumb(i)}
       <span class="txt"><b>${esc(i.label)}</b><small>${esc(i.sub)}</small></span>${CHEV}
     </a></li>`;}).join("");
+  document.getElementById("cards").innerHTML = itens.slice(1,5).map(i=>`
+    <a class="card" href="${esc(seguro(i.url))}" target="_blank" rel="noopener">
+      ${thumb(i)}<b>${esc(i.label)}</b><small>${esc(i.sub)}</small><span class="go">Abrir</span>
+    </a>`).join("");
 });
 
-/* ===== Scroll: o vídeo 1 sobe e revela o vídeo 2 ===== */
-const stack = document.getElementById("stack");
+/* ===== Scroll: fundo-1 vira fundo-2 (crossfade + desfoque) e cabeçalho ===== */
+const [p1,p2] = document.querySelectorAll(".panel");
+const veil = document.getElementById("veil"), cab = document.getElementById("cab");
 const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const suave = x => x*x*(3-2*x);
 let tick = false;
 function atualizar(){
   tick = false;
-  const alturaPainel = stack.offsetHeight / 2;
-  const max = Math.max(document.documentElement.scrollHeight - innerHeight, 1);
-  const p = Math.min(scrollY / max, 1);
-  stack.style.transform = `translate3d(0,${-p * alturaPainel}px,0)`;
+  const y = scrollY, vh = innerHeight;
+  const t = suave(Math.min(Math.max((y - vh*.05) / (vh*.85), 0), 1));
+  p1.style.opacity = 1 - t;
+  p2.style.opacity = t;
+  p1.style.transform = `translate3d(0,${-t*4}%,0) scale(${1 + .1*t})`;
+  p2.style.transform = `translate3d(0,${(1-t)*4}%,0) scale(${1.1 - .1*t})`;
+  veil.style.opacity = reduz ? 0 : Math.sin(Math.PI * t);
+  cab.classList.toggle("rolou", y > 24);
 }
-if(!reduz){
-  addEventListener("scroll",()=>{ if(!tick){ tick = true; requestAnimationFrame(atualizar); } },{passive:true});
-  addEventListener("resize",atualizar);
-  atualizar();
-}
+addEventListener("scroll",()=>{ if(!tick){ tick = true; requestAnimationFrame(atualizar); } },{passive:true});
+addEventListener("resize",atualizar);
+atualizar();
+
+/* marca no menu a seção que está na tela */
+const navLinks = [...document.querySelectorAll(".nav a")];
+const io = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting) navLinks.forEach(a=>a.toggleAttribute("aria-current", a.getAttribute("href") === "#"+e.target.id));
+}),{threshold:.5});
+document.querySelectorAll("main section[id]").forEach(x=>io.observe(x));
+
 /* ===== Vídeos: loop contínuo, retoma se o navegador pausar ===== */
 const videos = [...document.querySelectorAll("video")];
 const tocar = ()=> videos.forEach(v=>{ if(v.paused) v.play().catch(()=>{}); });
