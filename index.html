@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VIC GOMES | Links oficiais</title>
+<meta name="description" content="Vic Gomes: Instagram, Laranjinha, WhatsApp e novidades em um só lugar.">
+<meta name="theme-color" content="#2a0619">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rose:#ff4f93; --rose-soft:#ffc2da; --wine:#3b0a27; --ink:#fff5f9;
+  --glass:rgba(70,10,45,.34); --line:rgba(255,194,218,.55);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--wine);min-height:200svh;overflow-x:hidden}
+
+/* ---------- FUNDO: 2 vídeos empilhados que deslizam com o scroll ---------- */
+.stack{position:fixed;top:0;left:0;width:100%;height:200svh;z-index:-1;will-change:transform}
+.panel{position:relative;width:100%;height:100svh;overflow:hidden}
+.panel:nth-child(1){background:radial-gradient(circle at 30% 20%,#ff7ab0,#5a1038 70%)}
+.panel:nth-child(2){background:radial-gradient(circle at 70% 80%,#ff9cc6,#3b0a27 70%)}
+.panel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.12) brightness(1.06)}
+.panel::after{content:"";position:absolute;inset:0;
+  /* véu rosé leve: os vídeos aparecem por baixo. Para mais/menos vídeo, mude o opacity abaixo */
+  background:linear-gradient(165deg,rgba(255,79,147,.62),rgba(200,50,120,.42) 55%,rgba(122,20,84,.62));opacity:.7}
+.grid{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.07;
+  background-image:linear-gradient(var(--rose-soft) 1px,transparent 1px),linear-gradient(90deg,var(--rose-soft) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%)}
+
+/* ---------- TELAS ---------- */
+main{padding-top:env(safe-area-inset-top,0)}
+.screen{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center}
+.avatar{width:104px;height:104px;border-radius:50%;padding:3px;margin-bottom:18px;
+  background:conic-gradient(from 0deg,var(--rose),var(--rose-soft),#fff,var(--rose));
+  box-shadow:0 0 34px rgba(255,79,147,.65);animation:spin 9s linear infinite}
+.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 24%;display:block;border:3px solid var(--wine);background:#5a1038;animation:spin 9s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2.1rem);letter-spacing:-.01em;text-shadow:0 0 24px rgba(255,79,147,.8)}
+.bio{text-shadow:0 1px 12px rgba(40,4,24,.85);margin:10px 0 28px;max-width:32ch;color:var(--rose-soft);font-size:.98rem;line-height:1.5}
+
+/* ---------- 5 BARRAS ---------- */
+.links{width:100%;max-width:380px;display:flex;flex-direction:column;gap:12px;list-style:none;padding:0}
+.bar{display:flex;align-items:center;gap:14px;height:64px;padding:0 16px 0 10px;border-radius:18px;
+  color:var(--ink);text-decoration:none;text-align:left;
+  background:var(--glass);border:1px solid var(--line);
+  backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
+  box-shadow:0 0 0 0 rgba(255,79,147,0),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .2s,box-shadow .2s,background .2s}
+.bar:hover{transform:translateY(-2px);background:rgba(255,255,255,.2);box-shadow:0 8px 30px rgba(255,79,147,.55),inset 0 1px 0 rgba(255,255,255,.35)}
+.bar:active{transform:scale(.98)}
+.bar:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.thumb{flex:none;width:46px;height:46px;border-radius:12px;overflow:hidden;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--rose),#a3225f);box-shadow:0 0 14px rgba(255,79,147,.6)}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
+.txt b{font-weight:600;font-size:1rem}
+.txt small{text-shadow:0 1px 6px rgba(40,4,24,.6);font-size:.8rem;color:var(--rose-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chev{width:18px;height:18px;stroke:var(--rose-soft);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.hint{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:28px;font-size:.8rem;color:var(--rose-soft);display:flex;flex-direction:column;align-items:center;gap:6px}
+.hint i{width:1px;height:34px;background:linear-gradient(var(--rose-soft),transparent);animation:drip 1.8s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* segunda tela */
+.screen h2{font-family:'Unbounded',sans-serif;font-weight:500;font-size:clamp(1.3rem,5vw,1.8rem);max-width:16ch;line-height:1.25;text-shadow:0 0 24px rgba(255,79,147,.8)}
+.screen p.sub{text-shadow:0 1px 12px rgba(40,4,24,.85);margin:14px 0 26px;color:var(--rose-soft);max-width:34ch;line-height:1.5}
+.cta{display:inline-flex;align-items:center;justify-content:center;height:54px;padding:0 30px;border-radius:999px;font-weight:600;color:#3b0a27;text-decoration:none;
+  background:linear-gradient(135deg,#fff,var(--rose-soft));box-shadow:0 0 34px rgba(255,79,147,.7)}
+.cta:focus-visible{outline:2px solid #fff;outline-offset:3px}
+footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem;color:var(--rose-soft);opacity:.85;padding-bottom:env(safe-area-inset-bottom,0)}
+
+
+/* ---------- BORBOLETAS ---------- */
+.borboletas{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.bf{position:absolute;left:var(--x);bottom:-80px;width:var(--s);height:var(--s);opacity:0;
+  animation:sobe var(--d) linear var(--dl) infinite;filter:drop-shadow(0 0 7px rgba(255,79,147,.85)) hue-rotate(var(--h))}
+.bf .sw{width:100%;height:100%;animation:sway var(--sw) ease-in-out infinite alternate}
+.bf svg{width:100%;height:100%;overflow:visible;display:block}
+.wl,.wr{transform-box:view-box;transform-origin:50px 50px;animation:bate var(--f) ease-in-out infinite alternate}
+@keyframes sobe{0%{transform:translate(0,0);opacity:0}8%{opacity:.95}90%{opacity:.95}100%{transform:translate(var(--dx),calc(-100svh - 160px));opacity:0}}
+@keyframes sway{from{transform:translateX(calc(var(--a) * -1)) rotate(-14deg)}to{transform:translateX(var(--a)) rotate(14deg)}}
+@keyframes bate{from{transform:scaleX(1)}to{transform:scaleX(.18)}}
+
+@media (prefers-reduced-motion:reduce){.borboletas{display:none}.avatar,.avatar img,.hint i{animation:none}.bar{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- FUNDO: troque os arquivos em /videos por os seus (MP4, sem áudio, ~10 a 20s, leve) -->
+<div class="stack" id="stack" aria-hidden="true">
+  <div class="panel"><video muted loop autoplay playsinline disablepictureinpicture preload="auto" src="videos/fundo-1.mp4"></video></div>
+  <div class="panel"><video muted loop autoplay playsinline disablepictureinpicture preload="auto" src="videos/fundo-2.mp4"></video></div>
+</div>
+<div class="grid" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="asa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#ffc2da"/><stop offset="1" stop-color="#ff4f93"/></linearGradient>
+    <g id="asaE"><path d="M50 48C40 18 6 6 5 28c-1 17 27 24 45 22z" fill="url(#asa)" stroke="#fff" stroke-opacity=".7" stroke-width=".8"/><path d="M50 53C36 53 12 60 19 80c6 15 27 2 31-24z" fill="url(#asa)" fill-opacity=".85" stroke="#fff" stroke-opacity=".7" stroke-width=".8"/></g>
+  </defs>
+</svg>
+<div class="borboletas" id="borboletas" aria-hidden="true"></div>
+
+<main>
+  <section class="screen">
+    <div class="avatar"><img id="foto" src="foto-perfil.jpg" alt="Foto de perfil" onerror="this.removeAttribute('src')"></div>
+    <h1 id="nome">VIC GOMES</h1>
+    <p class="bio" id="bio">Escolha onde quer me acompanhar.</p>
+    <ul class="links" id="links"></ul>
+    <div class="hint" aria-hidden="true"><span>role para baixo</span><i></i></div>
+  </section>
+
+  <section class="screen">
+    <h2>Fale comigo direto no WhatsApp</h2>
+    <p class="sub">Parcerias, publicidade e contato profissional.</p>
+    <a class="cta" id="cta" href="https://wa.me/5579991768132" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    <footer>Os links externos podem conter conteúdo adulto (18+).</footer>
+  </section>
+</main>
+
+<script>
+/* ===== CONFIGURAÇÃO: edite aqui (ou use o Supabase, abaixo) ===== */
+const PERFIL = { nome:"VIC GOMES", bio:"Escolha onde quer me acompanhar.", whatsapp:"https://wa.me/5579991768132" };
+
+// img: URL de uma foto para o ícone da barra. Vazio = ícone de foto padrão.
+const LINKS = [
+  { label:"Laranjinha", sub:"Conteúdo exclusivo",   url:"https://privacy.com.br/checkout/Vicgoomes",       img:"" },
+  { label:"Instagram",  sub:"Meus reels",           url:"https://www.instagram.com/vicgoomes_/reels/",     img:"" },
+  { label:"WhatsApp",   sub:"Fale comigo direto",   url:"https://wa.me/5579991768132",                     img:"" },
+  { label:"YouTube",    sub:"Meus vídeos",          url:"https://youtube.com/@seucanal",                   img:"" },
+  { label:"Novidades",  sub:"Biquíni Chicc",        url:"https://www.instagram.com/biquini_chicc/",        img:"" }
+];
+
+/* ===== SUPABASE (opcional): preencha para editar os links por uma tabela =====
+   Tabela "links": pos int, label text, sub text, url text, img text (leitura pública via RLS) */
+const SB = { url:"https://tczzkepsuurhiztekgig.supabase.co", key:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRjenprZXBzdXVyaGl6dGVrZ2lnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxODE5ODEsImV4cCI6MjEwNTc1Nzk4MX0.7V8CKCGgB4CPyIhxbLi2OdT3lxZ7ciS8bQ6Tm75GrGY", table:"links" }; // chave pública (anon): só lê os links ativos
+
+async function carregar(){
+  if(!SB.url) return LINKS;
+  try{
+    const r = await fetch(`${SB.url}/rest/v1/${SB.table}?select=*&order=pos.asc&limit=5`,
+      { headers:{ apikey:SB.key, Authorization:"Bearer "+SB.key } });
+    const d = await r.json();
+    return Array.isArray(d) && d.length ? d : LINKS;
+  }catch(e){ return LINKS; }
+}
+
+const ICONE_FOTO = '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M4 18l5-5 4 4 3-3 4 4"/></svg>';
+const CHEV = '<svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const seguro = u => /^https?:\/\//i.test(u) ? u : "#";
+
+document.getElementById("nome").textContent = PERFIL.nome;
+document.getElementById("bio").textContent  = PERFIL.bio;
+document.getElementById("cta").href = seguro(PERFIL.whatsapp);
+
+carregar().then(itens=>{
+  document.getElementById("links").innerHTML = itens.slice(0,5).map(i=>`
+    <li><a class="bar" href="${esc(seguro(i.url))}" target="_blank" rel="noopener">
+      <span class="thumb">${i.img ? `<img src="${esc(seguro(i.img))}" alt="" loading="lazy">` : ICONE_FOTO}</span>
+      <span class="txt"><b>${esc(i.label)}</b><small>${esc(i.sub)}</small></span>${CHEV}
+    </a></li>`).join("");
+});
+
+/* ===== Scroll: o vídeo 1 sobe e revela o vídeo 2 ===== */
+const stack = document.getElementById("stack");
+const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let tick = false;
+function atualizar(){
+  tick = false;
+  const alturaPainel = stack.offsetHeight / 2;
+  const max = Math.max(document.documentElement.scrollHeight - innerHeight, 1);
+  const p = Math.min(scrollY / max, 1);
+  stack.style.transform = `translate3d(0,${-p * alturaPainel}px,0)`;
+}
+if(!reduz){
+  addEventListener("scroll",()=>{ if(!tick){ tick = true; requestAnimationFrame(atualizar); } },{passive:true});
+  addEventListener("resize",atualizar);
+  atualizar();
+}
+/* ===== Vídeos: loop contínuo, retoma se o navegador pausar ===== */
+const videos = [...document.querySelectorAll("video")];
+const tocar = ()=> videos.forEach(v=>{ if(v.paused) v.play().catch(()=>{}); });
+tocar();
+["touchstart","click","scroll"].forEach(e=>addEventListener(e,tocar,{once:true,passive:true}));
+document.addEventListener("visibilitychange",tocar);
+
+/* ===== Borboletas em loop infinito ===== */
+(function(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const box = document.getElementById("borboletas");
+  const n = innerWidth < 700 ? 12 : 20;
+  const r = (a,b)=> a + Math.random()*(b-a);
+  const svg = '<svg viewBox="0 0 100 100"><g class="wl"><use href="#asaE"/></g><g class="wr"><use href="#asaE" transform="matrix(-1 0 0 1 100 0)"/></g><ellipse cx="50" cy="50" rx="2.2" ry="15" fill="#fff"/><path d="M49 37q-5-12-10-14M51 37q5-12 10-14" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/></svg>';
+  for(let i=0;i<n;i++){
+    const d = r(14,26);
+    const b = document.createElement("div");
+    b.className = "bf";
+    b.style.cssText = `--x:${r(-2,98).toFixed(1)}%;--s:${r(22,52).toFixed(0)}px;--d:${d.toFixed(1)}s;--dl:${(-r(0,d)).toFixed(1)}s;--dx:${r(-90,90).toFixed(0)}px;--a:${r(18,46).toFixed(0)}px;--sw:${r(2.4,4.6).toFixed(1)}s;--f:${r(.16,.3).toFixed(2)}s;--h:${r(-25,20).toFixed(0)}deg`;
+    b.innerHTML = '<div class="sw">'+svg+'</div>';
+    box.appendChild(b);
+  }
+})();
+
+</script>
+</body>
+</html>
