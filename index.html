@@ -56,6 +56,12 @@ h1{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw
 .thumb{flex:none;width:46px;height:46px;border-radius:12px;overflow:hidden;display:grid;place-items:center;
   background:linear-gradient(135deg,var(--rose),#a3225f);box-shadow:0 0 14px rgba(255,79,147,.6)}
 .thumb img{width:100%;height:100%;object-fit:cover}
+.thumb.ig{background:linear-gradient(45deg,#feda75,#fa7e1e 28%,#d62976 58%,#962fbf 82%,#4f5bd5)}
+.thumb.wa{background:#25d366}
+.thumb.yt{background:#ff1a1a}
+.thumb.lj{background:linear-gradient(135deg,#ffb347,#ff5e1a)}
+.thumb.lo{background:linear-gradient(135deg,#ff6fa8,#a3225f)}
+.thumb.ig svg,.thumb.wa svg,.thumb.yt svg,.thumb.lj svg,.thumb.lo svg{width:27px;height:27px}
 .thumb svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .txt{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
 .txt b{font-weight:600;font-size:1rem}
@@ -132,7 +138,7 @@ const LINKS = [
   { label:"Laranjinha", sub:"Conteúdo exclusivo",   url:"https://privacy.com.br/checkout/Vicgoomes",       img:"" },
   { label:"Instagram",  sub:"Meus reels",           url:"https://www.instagram.com/vicgoomes_/reels/",     img:"" },
   { label:"WhatsApp",   sub:"Fale comigo direto",   url:"https://wa.me/5579991768132",                     img:"" },
-  { label:"YouTube",    sub:"Meus vídeos",          url:"https://youtube.com/@seucanal",                   img:"" },
+  { label:"YouTube",    sub:"Meus vídeos",          url:"https://www.youtube.com/@vicgoomes_",                   img:"" },
   { label:"Novidades",  sub:"Biquíni Chicc",        url:"https://www.instagram.com/biquini_chicc/",        img:"" }
 ];
 
@@ -156,6 +162,13 @@ async function carregar(){
 }
 
 const ICONE_FOTO = '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M4 18l5-5 4 4 3-3 4 4"/></svg>';
+const ICONES = {
+  laranjinha:{c:"lj", s:'<svg viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5" fill="#fff" stroke="none"/><path d="M12 6.4C12 4.3 13.5 3 15.8 3c0 2.2-1.4 3.4-3.8 3.4z" fill="#fff" stroke="none"/><path d="M12 8.5v10M7.6 11.4l8.8 4.2M16.4 11.4l-8.8 4.2" stroke="#ff8a3d" stroke-width="1" opacity=".55"/></svg>'},
+  instagram:{c:"ig", s:'<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="#fff" stroke="none"/></svg>'},
+  whatsapp:{c:"wa", s:'<svg viewBox="0 0 24 24"><path d="M12 3.4a8.6 8.6 0 0 0-7.4 12.9L3.4 20.6l4.4-1.2A8.6 8.6 0 1 0 12 3.4z"/><path d="M9.3 8.3c.3-.5.7-.5 1-.1l.8 1.1c.2.3.2.6-.1.9l-.4.5c.6 1.2 1.5 2.1 2.7 2.7l.5-.5c.2-.2.6-.3.9-.1l1.1.8c.4.3.4.7 0 1.1-.7.8-1.7 1.1-2.7.7-2.4-1-4-2.6-4.9-4.9-.3-.9 0-1.7.5-2.2z" fill="#fff" stroke="none"/></svg>'},
+  youtube:{c:"yt", s:'<svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.3v5.4l4.9-2.7z" fill="#fff" stroke="none"/></svg>'},
+  novidades:{c:"lo", s:'<svg viewBox="0 0 24 24"><path d="M5.6 8.2h12.8l-1 11.8H6.6z"/><path d="M9 8.2V7a3 3 0 0 1 6 0v1.2"/><path d="M12 15.6c-1.6-1.1-2.3-1.9-2.3-2.8a1.3 1.3 0 0 1 2.3-.8 1.3 1.3 0 0 1 2.3.8c0 .9-.7 1.7-2.3 2.8z" fill="#fff" stroke="none"/></svg>'}
+};
 const CHEV = '<svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>';
 const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const seguro = u => /^https?:\/\//i.test(u) ? u : "#";
@@ -165,11 +178,14 @@ document.getElementById("bio").textContent  = PERFIL.bio;
 document.getElementById("cta").href = seguro(PERFIL.whatsapp);
 
 carregar().then(itens=>{
-  document.getElementById("links").innerHTML = itens.slice(0,5).map(i=>`
+  document.getElementById("links").innerHTML = itens.slice(0,5).map(i=>{
+    const ic = ICONES[String(i.label||"").toLowerCase()];
+    const miolo = i.img ? `<img src="${esc(seguro(i.img))}" alt="" loading="lazy">` : (ic ? ic.s : ICONE_FOTO);
+    return `
     <li><a class="bar" href="${esc(seguro(i.url))}" target="_blank" rel="noopener">
-      <span class="thumb">${i.img ? `<img src="${esc(seguro(i.img))}" alt="" loading="lazy">` : ICONE_FOTO}</span>
+      <span class="thumb ${i.img || !ic ? "" : ic.c}">${miolo}</span>
       <span class="txt"><b>${esc(i.label)}</b><small>${esc(i.sub)}</small></span>${CHEV}
-    </a></li>`).join("");
+    </a></li>`;}).join("");
 });
 
 /* ===== Scroll: o vídeo 1 sobe e revela o vídeo 2 ===== */
