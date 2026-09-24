@@ -139,6 +139,21 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 .rodape small{font-size:.82rem;color:var(--rose-soft);text-shadow:0 1px 8px rgba(40,4,24,.8)}
 .dica{margin-top:10px;font-size:.8rem;color:var(--rose-soft);text-shadow:0 1px 10px rgba(40,4,24,.85)}
 
+/* ---------- DESTAQUES (menu + máscara animada com GSAP) ---------- */
+.destaques{display:grid;grid-template-columns:1fr;gap:26px;width:100%;max-width:1000px;margin-top:22px;align-items:center;text-align:left}
+@media (min-width:900px){.destaques{grid-template-columns:1fr 1fr;gap:40px}}
+.menu{list-style:none;padding:0;display:flex;flex-direction:column;gap:24px}
+.item{display:flex;align-items:flex-start;gap:14px;color:var(--ink);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.item:focus-visible,.palco:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:12px}
+.item .num{font-family:'Unbounded',sans-serif;font-weight:700;font-size:1.3rem;margin-top:.35rem;color:rgba(255,194,218,.75);transition:color .4s,transform .4s}
+.item .nome{font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:-.02em;line-height:1;font-size:clamp(1.45rem,6.4vw,2.5rem);
+  color:transparent;-webkit-text-stroke:1.5px rgba(255,194,218,.8);transition:color .5s,transform .5s,-webkit-text-stroke-color .5s}
+.item.ativo .num{color:var(--rose);transform:scale(1.15)}
+.item.ativo .nome{color:#fff;-webkit-text-stroke-color:transparent;transform:translateX(10px);text-shadow:0 0 26px rgba(255,79,147,.75)}
+.palco{position:relative;display:block;width:100%;max-width:460px;margin:0 auto}
+.palco::before{content:"";position:absolute;inset:-14%;background:radial-gradient(closest-side,rgba(255,79,147,.4),transparent);pointer-events:none}
+.palco svg{position:relative;display:block;width:100%;height:auto}
+
 /* ---------- BORBOLETAS ---------- */
 .borboletas{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
 .bf{position:absolute;left:var(--x);bottom:-80px;width:var(--s);height:var(--s);opacity:0;
@@ -174,7 +189,7 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
 <header class="cab" id="cab">
   <a class="marca" href="#inicio">VIC GOMES</a>
   <nav class="nav" aria-label="Seções">
-    <a href="#inicio" aria-current>Início</a><a href="#contato">Contato</a>
+    <a href="#inicio" aria-current>Início</a><a href="#destaques">Destaques</a><a href="#contato">Contato</a>
   </nav>
 </header>
 
@@ -190,6 +205,34 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
     <div class="hint" aria-hidden="true"><span>role para baixo</span><i></i></div>
   </section>
 
+  <section class="screen" id="destaques">
+    <h2>Destaques</h2>
+    <p class="sub">Toque em um item ou na imagem para abrir.</p>
+    <div class="destaques">
+      <ul class="menu" id="menuDest"></ul>
+      <a class="palco" id="palco" href="https://pay.goold.club/aff/R841JA/EQCHJM6T" target="_blank" rel="noopener sponsored" aria-label="Abrir destaque">
+        <svg viewBox="0 0 500 500" aria-hidden="true">
+          <defs>
+            <clipPath id="clip-original">
+              <path class="path" d="M480.6,235H19.4c-6,0-10.8-4.9-10.8-10.8v-9.5c0-6,4.9-10.8,10.8-10.8h461.1c6,0,10.8,4.9,10.8,10.8v9.5C491.4,230.2,486.6,235,480.6,235z"/>
+              <path class="path" d="M483.1,362.4H16.9c-4.6,0-8.3-3.7-8.3-8.3v-1.8c0-4.6,3.7-8.3,8.3-8.3h466.1c4.6,0,8.3,3.7,8.3,8.3v1.8C491.4,358.7,487.7,362.4,483.1,362.4z"/>
+              <path class="path" d="M460.3,336.3H39.7c-17.2,0-31.1-13.9-31.1-31.1v-31.5c0-17.2,13.9-31.1,31.1-31.1h420.7c17.2,0,31.1,13.9,31.1,31.1v31.5C491.4,322.4,477.5,336.3,460.3,336.3z"/>
+              <path class="path" d="M459.2,196.2H40.8v-35c0-47.5,38.5-86,86-86h246.5c47.5,0,86,38.5,86,86V196.2z"/>
+              <path class="path" d="M441.9,424.9H58.1c-9.6,0-17.3-7.8-17.3-17.3v-37.4h418.5v37.4C459.2,417.1,451.5,424.9,441.9,424.9z"/>
+            </clipPath>
+            <clipPath id="clip-hexagons">
+              <rect class="path" x="20" y="20" width="200" height="280" rx="12"/><rect class="path" x="20" y="320" width="200" height="160" rx="12"/>
+              <rect class="path" x="240" y="20" width="240" height="140" rx="12"/><rect class="path" x="240" y="180" width="110" height="160" rx="12"/>
+              <rect class="path" x="370" y="180" width="110" height="160" rx="12"/><rect class="path" x="240" y="360" width="240" height="120" rx="12"/>
+            </clipPath>
+            <clipPath id="clip-pixels"><rect class="path" x="20" y="20" width="140" height="140" rx="4"/><rect class="path" x="180" y="20" width="140" height="140" rx="4"/><rect class="path" x="340" y="20" width="140" height="140" rx="4"/><rect class="path" x="20" y="180" width="140" height="140" rx="4"/><rect class="path" x="180" y="180" width="140" height="140" rx="4"/><rect class="path" x="340" y="180" width="140" height="140" rx="4"/><rect class="path" x="20" y="340" width="140" height="140" rx="4"/><rect class="path" x="180" y="340" width="140" height="140" rx="4"/><rect class="path" x="340" y="340" width="140" height="140" rx="4"/></clipPath>
+          </defs>
+          <g id="grupoDest" clip-path="url(#clip-original)"><image id="imgDest" width="500" height="500" preserveAspectRatio="xMidYMin slice"/></g>
+        </svg>
+      </a>
+    </div>
+  </section>
+
   <section class="screen" id="contato">
     <h2>Fale comigo direto no WhatsApp</h2>
     <p class="sub">Parcerias, publicidade e contato profissional.</p>
@@ -198,17 +241,18 @@ footer{text-shadow:0 1px 10px rgba(40,4,24,.85);margin-top:44px;font-size:.75rem
   </section>
 </main>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
 /* ===== CONFIGURAÇÃO: edite aqui (ou use o Supabase, abaixo) ===== */
 const PERFIL = { nome:"VIC GOMES", bio:"Escolha onde quer me acompanhar.", whatsapp:"https://wa.me/5579991768132" };
 
 // img: URL de uma foto para o ícone da barra. Vazio = ícone de foto padrão.
 const LINKS = [
-  { label:"Laranjinha", sub:"Conteúdo exclusivo",   url:"https://privacy.com.br/checkout/Vicgoomes",       img:"", foto:"perfil-laranjinha.jpg" },
-  { label:"Instagram",  sub:"Meus reels",           url:"https://www.instagram.com/vicgoomes_/reels/",     img:"", foto:"perfil-instagram.jpg" },
-  { label:"WhatsApp",   sub:"Fale comigo direto",   url:"https://wa.me/5579991768132",                     img:"", foto:"perfil-whatsapp.jpg" },
-  { label:"YouTube",    sub:"Meus vídeos",          url:"https://www.youtube.com/@vicgoomes_",                   img:"", foto:"perfil-youtube.jpg" },
-  { label:"Novidades",  sub:"Biquíni Chicc",        url:"https://www.instagram.com/biquini_chicc/",        img:"", foto:"perfil-novidades.jpg" }
+  { label:"JOGUINHO ON🎮", icone:"laranjinha", sub:"Conteúdo exclusivo",   url:"https://solo.to/vicgoomes",       img:"", foto:"perfil-laranjinha.jpg" },
+  { label:"Instagram", icone:"instagram",  sub:"Meus reels",           url:"https://www.instagram.com/vicgoomes_/reels/",     img:"", foto:"perfil-instagram.jpg" },
+  { label:"WhatsApp", icone:"whatsapp",   sub:"Fale comigo direto",   url:"https://wa.me/5579991768132",                     img:"", foto:"perfil-whatsapp.jpg" },
+  { label:"YouTube", icone:"youtube",    sub:"Meus vídeos",          url:"https://www.youtube.com/@vicgoomes_",                   img:"", foto:"perfil-youtube.jpg" },
+  { label:"Novidades", icone:"novidades",  sub:"Biquíni Chicc",        url:"https://www.instagram.com/biquini_chicc/",        img:"", foto:"perfil-novidades.jpg" }
 ];
 
 /* ===== MÍDIA no Supabase Storage (bucket público "midia") =====
@@ -247,7 +291,7 @@ document.getElementById("bio").textContent  = PERFIL.bio;
 document.getElementById("cta").href = seguro(PERFIL.whatsapp);
 
 const thumb = i => {
-  const ic = ICONES[String(i.label||"").toLowerCase()];
+  const ic = ICONES[String(i.icone || i.label || "").toLowerCase()];
   const miolo = i.img ? `<img src="${esc(seguro(i.img))}" alt="" loading="lazy">` : (ic ? ic.s : ICONE_FOTO);
   return `<span class="thumb ${i.img || !ic ? "" : ic.c}">${miolo}</span>`;
 };
@@ -352,6 +396,48 @@ const io = new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting) navLinks.forEach(a=>a.toggleAttribute("aria-current", a.getAttribute("href") === "#"+e.target.id));
 }),{threshold:.5});
 document.querySelectorAll("main section[id]").forEach(x=>io.observe(x));
+
+/* ===== Destaques: menu à esquerda, máscara animada (GSAP) à direita; tudo abre o mesmo link ===== */
+const OFERTA = "https://pay.goold.club/aff/R841JA/EQCHJM6T";
+const DESTAQUES = [
+  { num:"01", nome:"Kit Tônico Poderoso", clip:"clip-original", imgs:["destaque-1.jpg","perfil-youtube.jpg","foto-perfil.jpg"] },
+  { num:"02", nome:"Fresh Desserts",      clip:"clip-hexagons", imgs:["destaque-2.jpg","perfil-novidades.jpg","foto-perfil.jpg"] },
+  { num:"03", nome:"Link da VIC GOMES",   clip:"clip-pixels",   imgs:["destaque-3.jpg","perfil-whatsapp.jpg","foto-perfil.jpg"] }
+];
+(function(){
+  const menu = document.getElementById("menuDest"), img = document.getElementById("imgDest"), grupo = document.getElementById("grupoDest");
+  document.getElementById("palco").href = OFERTA;
+  menu.innerHTML = DESTAQUES.map((d,k)=>`<li><a class="item" href="${OFERTA}" target="_blank" rel="noopener sponsored" data-k="${k}">
+    <span class="num">${d.num}</span><span class="nome">${esc(d.nome)}</span></a></li>`).join("");
+  const els = [...menu.querySelectorAll(".item")];
+  const urls = [];
+  const primeira = lista => new Promise(ok=>{ let k = 0; (function t(){
+    if(k >= lista.length) return ok(lista[lista.length-1]);
+    const im = new Image(); im.onload = ()=>ok(lista[k]); im.onerror = ()=>{ k++; t(); }; im.src = lista[k]; })(); });
+
+  let tl = null, ativo = -1, visivel = true, pausaAte = 0;
+  function mostrar(i){
+    if(i === ativo || !urls[i]) return;
+    ativo = i; const d = DESTAQUES[i];
+    els.forEach((el,k)=>el.classList.toggle("ativo", k === i));
+    img.setAttribute("href", urls[i]); grupo.setAttribute("clip-path", `url(#${d.clip})`);
+    if(tl) tl.kill();
+    if(!window.gsap || reduz) return;
+    const sel = `#${d.clip} .path`;
+    gsap.set(sel, { scale:0, transformOrigin:"50% 50%" });
+    tl = gsap.timeline({ repeat:-1, repeatDelay:1, paused:!visivel })
+      .to(sel, { scale:1, duration:.8, stagger:{ amount:.4, from:"random" }, ease:"expo.out" })
+      .to(sel, { scale:1.05, duration:1.5, yoyo:true, repeat:1, ease:"sine.inOut", stagger:{ amount:.2, from:"center" } })
+      .to(sel, { scale:0, duration:.6, stagger:{ amount:.3, from:"edges" }, ease:"expo.in" });
+  }
+  els.forEach((el,k)=>el.addEventListener("pointerenter", ()=>{ pausaAte = Date.now() + 9000; mostrar(k); }));
+
+  Promise.all(DESTAQUES.map(d=>primeira(d.imgs.map(f=>MIDIA + f)))).then(u=>{ urls.push(...u); mostrar(0); });
+
+  new IntersectionObserver(es=>{ visivel = es[0].isIntersecting; if(tl) tl.paused(!visivel); },{threshold:.15})
+    .observe(document.getElementById("destaques"));
+  setInterval(()=>{ if(visivel && !reduz && Date.now() > pausaAte) mostrar((ativo + 1) % DESTAQUES.length); }, 7500);
+})();
 
 /* ===== Vídeos: loop contínuo, retoma se o navegador pausar ===== */
 const videos = [...document.querySelectorAll("video")];
